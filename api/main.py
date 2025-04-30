@@ -436,8 +436,6 @@ async def get_rankings(
     coach_name: str = Query(None, description="Filter by coach name"),
     variant_name: str = Query(None, description="Filter by variant name"),
     country: str = Query(None, description="Filter by coach country"),
-    dateupdate_gte: str = Query(None, regex=r"^\d{4}-\d{2}-\d{2}$", description="Filter by update date (greater than or equal to)"),
-    dateupdate_lte: str = Query(None, regex=r"^\d{4}-\d{2}-\d{2}$", description="Filter by update date (less than or equal to)"),
     ranking_gte: int = Query(None, description="Filter by ranking (greater than or equal to)"),
     ranking_lte: int = Query(None, description="Filter by ranking (less than or equal to)"),
     db: AsyncSession = Depends(get_async_db),
@@ -458,12 +456,6 @@ async def get_rankings(
             query = query.where(Variant.variantname.ilike(f"%{variant_name}%"))
         if country:
             query = query.where(Member.country.ilike(f"%{country}%"))
-        if dateupdate_gte:
-            dateupdate_gte = datetime.strptime(dateupdate_gte, "%Y-%m-%d")
-            query = query.where(CoachRankingVariant.dateupdate >= dateupdate_gte)
-        if dateupdate_lte:
-            dateupdate_lte = datetime.strptime(dateupdate_lte, "%Y-%m-%d")
-            query = query.where(CoachRankingVariant.dateupdate <= dateupdate_lte)
         if ranking_gte is not None:
             query = query.where(CoachRankingVariant.ranking >= ranking_gte)
         if ranking_lte is not None:
