@@ -37,10 +37,9 @@ tags_metadata = [
         "description": "Common data includes variants, races, and other shared information.",
     },    
 ]
-app = FastAPI(title="NAF API", root_path=f"/{root_path}", openapi_tags=tags_metadata)
+app = FastAPI(title="NAF API", root_path=f"/{root_path}", openapi_tags=tags_metadata, summary="NAF API to use data from the daily dumps of the NAF database", description="Feel free to your own service and customize it to your needs. You can find the [source code](https://github.com/gr4n0t4/naf-api) in my github repository", version="0.0.1")
 
 SQLALCHEMY_DATABASE_URL = f"postgresql+asyncpg://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@{os.getenv('POSTGRES_HOST', 'localhost')}:5432/{os.getenv('POSTGRES_DB')}"
-print(SQLALCHEMY_DATABASE_URL)
 # Create SQLAlchemy engine
 engine = create_async_engine(
     SQLALCHEMY_DATABASE_URL,
