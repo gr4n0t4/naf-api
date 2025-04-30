@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS tournaments (
 
 -- naf_tournament_statistics_group.csv
 CREATE TABLE IF NOT EXISTS tournament_statistics (
-    typeid INT REFERENCES variants(variantid),
+    typeid INT REFERENCES awards(id),
     tournamentid INT REFERENCES tournaments(tournamentid),
     coachid INT REFERENCES members(naf_number),
     raceid INT REFERENCES races(raceid),
