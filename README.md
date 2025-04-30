@@ -1,6 +1,7 @@
 # naf-api
 NAF api created from daily dumps of the database
 # How to use
+Create the file .env with your configuration, you can copy env.example
 ## From scratch
 To stand up everything at once you can use the following command
 `docker-compose up`
