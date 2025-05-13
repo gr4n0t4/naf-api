@@ -260,7 +260,7 @@ def main():
     # Step 3: Import the extracted fileo the database
     for table, path in tables.items():
         print(f"Importing {path[0]} to {table}")
-        csv_file_path = os.path.join(EXTRACT_DIR, folder[0], path[0])
+        csv_file_path = os.path.join(EXTRACT_DIR, folder[-1], path[0])
         import_to_postgres(csv_file_path, table, column_mapping=path[1])
         
 
