@@ -5,6 +5,7 @@ import psycopg2
 from io import BytesIO
 import csv
 import tempfile
+import shutil
 
 # Database configuration
 DB_CONFIG = {
@@ -214,6 +215,15 @@ def import_to_postgres(file_path, table_name, column_mapping):
     conn.close()            
 
 def main():
+    # Remove the extract directory if it exists
+    if os.path.exists(EXTRACT_DIR):
+        shutil.rmtree(EXTRACT_DIR)
+    # Remove the zip file if it exists
+    zip_path = os.path.join(DOWNLOAD_DIR, "nafstat.zip")
+    if os.path.exists(zip_path):
+        os.remove(zip_path)
+    if os.path.exists(EXTRACT_DIR):
+        shutil.rmtree(EXTRACT_DIR)
     os.makedirs(EXTRACT_DIR, exist_ok=True)
     zip_path = os.path.join(DOWNLOAD_DIR, "nafstat.zip")
     
