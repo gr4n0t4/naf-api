@@ -189,7 +189,10 @@ def import_to_postgres(file_path, table_name, column_mapping):
         writer.writeheader()
 
         for row in reader:
-            mapped_row = {column_mapping.get(key, key): (None if value.startswith('0000-00-00') else value) for key, value in row.items()}
+            mapped_row = {
+                column_mapping.get(key, key): (None if '-00-' in value else value)
+                for key, value in row.items()
+            }
             writer.writerow(mapped_row)
 
         temp_file.close()
